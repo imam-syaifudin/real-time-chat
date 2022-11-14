@@ -2,7 +2,7 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const { userJoin, getCurrentUser } = require('./utils/user');
+const { userJoin, getCurrentUser, getAllUser } = require('./utils/user');
 
 
 // Port
@@ -29,12 +29,12 @@ io.on('connection', socket => {
         socket.join(user.room);
         
         // Ucapan Selamat Untuk Client Pribadi
-        socket.emit('message',messageFormater(author,`Welcome To Room ${room} Room`));
+        socket.emit('message',messageFormater(author,`Welcome To Room ${room} Room`),getAllUser(room));
         
-        // // Untuk Siaran ke semua pengguna
-        // socket.broadcast
-        // .to(user.room)
-        // .emit('message',messageFormater(author,`${username} telah gabung ke dalam obrolan`));
+        // Untuk Siaran ke semua pengguna
+        socket.broadcast
+        .to(user.room)
+        .emit('message',messageFormater(author,`${username} telah gabung ke dalam obrolan`));
         
 
         // Mengambil pesan

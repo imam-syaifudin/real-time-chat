@@ -17,6 +17,15 @@ function getCurrentUser(id){
 
 }
 
+function getAllUser(room){
+
+    const user = users.filter(user => user.room == room);
+    users.push(user);
+
+    return user;
+
+}
+
 module.exports = {
-    userJoin, getCurrentUser
+    userJoin, getCurrentUser, getAllUser
 }
