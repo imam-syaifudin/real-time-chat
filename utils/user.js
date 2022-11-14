@@ -17,15 +17,13 @@ function getCurrentUser(id){
 
 }
 
-function getAllUser(room){
+function getUserInRoom(room){
 
-    const user = users.filter(user => user.room == room);
-    users.push(user);
+    return users.filter(user => user.room == room);
 
-    return user;
 
 }
 
 module.exports = {
-    userJoin, getCurrentUser, getAllUser
+    userJoin, getCurrentUser, getUserInRoom
 }

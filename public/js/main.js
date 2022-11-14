@@ -10,18 +10,22 @@ const { username, room } = Qs.parse(location.search, {
 
 // Join chat room
 socket.emit('joinRoom',({username, room}));
+socket.on('getUserInRoom',(user) => {
+    
+    userList.innerHTML = `
+                ${user.map(val =>  `<li>${val.username}</li>`).join('') }
+            `
+    // user.map((usr) => {
+    //     userList.innerHTML = `<li>${usr.username}</li>`
+    // });
+
+
+});
 chatcord.innerText = username;
 
-socket.on('message',(msg,user) => {
+socket.on('message',(msg) => {
 
     tampilkanPesan(msg);
-    console.log(user);
-    for( let i = 0; i < user.length; i++ ){
-        let li = document.createElement('li');
-        li.innerHTML = `${user[i].username}`;
-        userList.appendChild(li);
-    }
-    
 
     chatMessages.scrollTop = chatMessages.scrollHeight;
     
